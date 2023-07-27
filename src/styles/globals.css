@@ -1,3 +1,172 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 350 12% 90%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+
+    /* == Theme Properties == */
+    --theme-font-family-base: system-ui;
+    --theme-font-family-heading: system-ui;
+    --theme-font-color-base: 0 0 0;
+    --theme-font-color-dark: 255 255 255;
+    --theme-rounded-base: 9999px;
+    --theme-rounded-container: 8px;
+    --theme-border-base: 1px;
+    /* == Theme On-X Colors == */
+    --on-primary: 255 255 255;
+    --on-secondary: 255 255 255;
+    --on-tertiary: 255 255 255;
+    --on-success: 0 0 0;
+    --on-warning: 0 0 0;
+    --on-error: 0 0 0;
+    --on-surface: 0 0 0;
+    /* == Theme Colors  == */
+    --color-primaryT-50: 232 226 227; /* ⬅ #e8e2e3 */
+    --color-primaryT-100: 224 216 218; /* ⬅ #e0d8da */
+    --color-primaryT-200: 216 206 209; /* ⬅ #d8ced1 */
+    --color-primaryT-300: 193 177 181; /* ⬅ #c1b1b5 */
+    --color-primaryT-400: 147 118 126; /* ⬅ #93767e */
+    --color-primaryT-500: 100 59 71; /* ⬅ #643B47 */
+    --color-primaryT-600: 90 53 64; /* ⬅ #5a3540 */
+    --color-primaryT-700: 75 44 53; /* ⬅ #4b2c35 */
+    --color-primaryT-800: 60 35 43; /* ⬅ #3c232b */
+    --color-primaryT-900: 49 29 35; /* ⬅ #311d23 */
+    /* secondary | #000000 */
+    --color-secondaryT-50: 217 217 217; /* ⬅ #d9d9d9 */
+    --color-secondaryT-100: 204 204 204; /* ⬅ #cccccc */
+    --color-secondaryT-200: 191 191 191; /* ⬅ #bfbfbf */
+    --color-secondaryT-300: 153 153 153; /* ⬅ #999999 */
+    --color-secondaryT-400: 77 77 77; /* ⬅ #4d4d4d */
+    --color-secondaryT-500: 0 0 0; /* ⬅ #000000 */
+    --color-secondaryT-600: 0 0 0; /* ⬅ #000000 */
+    --color-secondaryT-700: 0 0 0; /* ⬅ #000000 */
+    --color-secondaryT-800: 0 0 0; /* ⬅ #000000 */
+    --color-secondaryT-900: 0 0 0; /* ⬅ #000000 */
+    /* tertiary | #c03939 */
+    --color-tertiary-50: 246 225 225; /* ⬅ #f6e1e1 */
+    --color-tertiary-100: 242 215 215; /* ⬅ #f2d7d7 */
+    --color-tertiary-200: 239 206 206; /* ⬅ #efcece */
+    --color-tertiary-300: 230 176 176; /* ⬅ #e6b0b0 */
+    --color-tertiary-400: 211 116 116; /* ⬅ #d37474 */
+    --color-tertiary-500: 192 57 57; /* ⬅ #c03939 */
+    --color-tertiary-600: 173 51 51; /* ⬅ #ad3333 */
+    --color-tertiary-700: 144 43 43; /* ⬅ #902b2b */
+    --color-tertiary-800: 115 34 34; /* ⬅ #732222 */
+    --color-tertiary-900: 94 28 28; /* ⬅ #5e1c1c */
+    /* success | #7cd306 */
+    --color-success-50: 235 248 218; /* ⬅ #ebf8da */
+    --color-success-100: 229 246 205; /* ⬅ #e5f6cd */
+    --color-success-200: 222 244 193; /* ⬅ #def4c1 */
+    --color-success-300: 203 237 155; /* ⬅ #cbed9b */
+    --color-success-400: 163 224 81; /* ⬅ #a3e051 */
+    --color-success-500: 124 211 6; /* ⬅ #7cd306 */
+    --color-success-600: 112 190 5; /* ⬅ #70be05 */
+    --color-success-700: 93 158 5; /* ⬅ #5d9e05 */
+    --color-success-800: 74 127 4; /* ⬅ #4a7f04 */
+    --color-success-900: 61 103 3; /* ⬅ #3d6703 */
+    /* warning | #ff9966 */
+    --color-warning-50: 255 240 232; /* ⬅ #fff0e8 */
+    --color-warning-100: 255 235 224; /* ⬅ #ffebe0 */
+    --color-warning-200: 255 230 217; /* ⬅ #ffe6d9 */
+    --color-warning-300: 255 214 194; /* ⬅ #ffd6c2 */
+    --color-warning-400: 255 184 148; /* ⬅ #ffb894 */
+    --color-warning-500: 255 153 102; /* ⬅ #ff9966 */
+    --color-warning-600: 230 138 92; /* ⬅ #e68a5c */
+    --color-warning-700: 191 115 77; /* ⬅ #bf734d */
+    --color-warning-800: 153 92 61; /* ⬅ #995c3d */
+    --color-warning-900: 125 75 50; /* ⬅ #7d4b32 */
+    /* error | #ff3333 */
+    --color-error-50: 255 224 224; /* ⬅ #ffe0e0 */
+    --color-error-100: 255 214 214; /* ⬅ #ffd6d6 */
+    --color-error-200: 255 204 204; /* ⬅ #ffcccc */
+    --color-error-300: 255 173 173; /* ⬅ #ffadad */
+    --color-error-400: 255 112 112; /* ⬅ #ff7070 */
+    --color-error-500: 255 51 51; /* ⬅ #ff3333 */
+    --color-error-600: 230 46 46; /* ⬅ #e62e2e */
+    --color-error-700: 191 38 38; /* ⬅ #bf2626 */
+    --color-error-800: 153 31 31; /* ⬅ #991f1f */
+    --color-error-900: 125 25 25; /* ⬅ #7d1919 */
+    /* surface | #BDA5AB */
+    --color-surface-50: 245 242 242; /* ⬅ #f5f2f2 */
+    --color-surface-100: 242 237 238; /* ⬅ #f2edee */
+    --color-surface-200: 239 233 234; /* ⬅ #efe9ea */
+    --color-surface-300: 229 219 221; /* ⬅ #e5dbdd */
+    --color-surface-400: 209 192 196; /* ⬅ #d1c0c4 */
+    --color-surface-500: 189 165 171; /* ⬅ #BDA5AB */
+    --color-surface-600: 170 149 154; /* ⬅ #aa959a */
+    --color-surface-700: 142 124 128; /* ⬅ #8e7c80 */
+    --color-surface-800: 113 99 103; /* ⬅ #716367 */
+    --color-surface-900: 93 81 84; /* ⬅ #5d5154 */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+
+    --primary: 210 40% 98%;
+    --primaryT-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondaryT-foreground: 210 40% 98%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+
+    --ring: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

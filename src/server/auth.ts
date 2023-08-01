@@ -7,8 +7,6 @@ import {
   type DefaultSession,
 } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import DiscordProvider from "next-auth/providers/discord";
-import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 
 /**
@@ -82,7 +80,7 @@ export const authOptions: NextAuthOptions = {
         }
         return user;
       },
-    }),
+    })
     /**
      * ...add more providers here.
      *

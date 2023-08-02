@@ -11,7 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return
     }
 
-        sendEmail(req.body)
-    .then((response) => res.send(response.message))
-    .catch((error) => res.status(500).send(error.message));
+        await sendEmail(req.body);
+        return res.status(200).json({message: 'Email sent'})
 }

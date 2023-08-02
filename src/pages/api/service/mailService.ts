@@ -6,7 +6,6 @@ interface sendEmailArgs {
 }
 
 export async function sendEmail({ recipient_email, reset_token }: sendEmailArgs){
-  return new Promise((resolve, reject) => {
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -52,5 +51,4 @@ export async function sendEmail({ recipient_email, reset_token }: sendEmailArgs)
       }
       return { message: "Email sent succesfuly" };
     });
-  });
-}
+  };

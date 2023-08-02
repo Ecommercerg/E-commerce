@@ -7,8 +7,13 @@ function generateToken() {
   return crypto.randomBytes(20).toString('hex');
 }
 
-export async function handler (req: NextApiRequest, res: NextApiResponse) {
+export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body
+
+  if (req.method !== 'POST') {
+    res.status(405).json({ message: 'Method not allowed' })
+    return
+  }
 
   try {
     const user = await prisma.user.findUnique({
@@ -20,6 +25,7 @@ export async function handler (req: NextApiRequest, res: NextApiResponse) {
     }
 
     const resetToken = generateToken();
+    console.log(resetToken)
     const resetTokenExpiresAt = new Date();
     resetTokenExpiresAt.setHours(resetTokenExpiresAt.getHours() + 1);
 
@@ -37,7 +43,7 @@ export async function handler (req: NextApiRequest, res: NextApiResponse) {
       reset_token: resetToken,
     })
 
-    return res.status(200).json({ ok: true })
+    return res.status(200).json({ message: "success" })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error: 'Something went wrong' })

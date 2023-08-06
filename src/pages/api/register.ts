@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { prisma } from '../../server/db';
+import { isPasswordValid } from './utils/passwordValidator';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
@@ -16,6 +17,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (existingUser) {
             return res.status(422).json({message: 'Email already in use'})
+        }
+
+        if(isPasswordValid(password) === false){
+            return res.status(422).json({message: 'Password is not valid'})
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);

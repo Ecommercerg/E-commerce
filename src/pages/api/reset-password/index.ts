@@ -3,6 +3,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 import bcrypt from "bcrypt";
+import { isPasswordValid } from "../utils/passwordValidator";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,6 +16,10 @@ export default async function handler(
   }
 
   const { userId, token, password } = body;
+
+  if (isPasswordValid(password) === false) {
+    return res.status(422).json({ message: "Password is not valid" });
+  }
 
   try {
     // Find the verificationToken in the database

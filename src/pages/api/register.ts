@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { prisma } from '../../server/db';
-import { isPasswordValid } from './utils/passwordValidator';
+import { isPasswordValid } from '../../utils/passwordValidator';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){

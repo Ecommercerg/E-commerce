@@ -3,7 +3,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 import bcrypt from "bcrypt";
-import { isPasswordValid } from "../utils/passwordValidator";
+import { isPasswordValid } from "../../../utils/passwordValidator";
 
 export default async function handler(
   req: NextApiRequest,

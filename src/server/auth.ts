@@ -8,6 +8,8 @@ import {
 } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "~/server/db";
+import GoogleProvider from "next-auth/providers/google";
+
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -80,7 +82,11 @@ export const authOptions: NextAuthOptions = {
         }
         return user;
       },
-    })
+    }),
+    GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID || "",
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+		}),
     /**
      * ...add more providers here.
      *

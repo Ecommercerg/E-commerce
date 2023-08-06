@@ -1,9 +1,156 @@
-import { type Config } from "tailwindcss";
-
-export default {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        primaryT: {
+          50: "#e8e2e3",
+          100: "#e0d8da",
+          200: "#d8ced1",
+          300: "#c1b1b5",
+          400: "#93767e",
+          500: "#643B47",
+          600: "#5a3540",
+          700: " #4b2c35",
+          800: "#3c232b",
+          900: "#311d23",
+        },
+        secondaryT: {
+          50: "#d9d9d9",
+          100: "#cccccc",
+          200: "#bfbfbf",
+          300: "#999999",
+          400: "#4d4d4d",
+          500: "#000000",
+        },
+        tertiaryT: {
+          50: "#f6e1e1",
+          100: "#f2d7d7",
+          200: "#efcece",
+          300: "#e6b0b0",
+          400: "#d37474",
+          500: "#c03939",
+          600: "#ad3333",
+          700: "#902b2b",
+          800: "#732222",
+          900: "#5e1c1c",
+        },
+        successT: {
+          50: "#ebf8da",
+          100: "#e5f6cd",
+          200: "#def4c1",
+          300: "#cbed9b",
+          400: "#a3e051",
+          500: "#7cd306",
+          600: "#70be05",
+          700: "#5d9e05",
+          800: "#4a7f04",
+          900: "#3d6703",
+        },
+        warningT: {
+          50: "#fff0e8",
+          100: "#ffebe0",
+          200: "#ffe6d9",
+          300: "#ffd6c2",
+          400: "#ffb894",
+          500: "#ff9966",
+          600: "#e68a5c",
+          700: "#bf734d",
+          800: "#995c3d",
+          900: "#7d4b32",
+        },
+        errorT: {
+          50: "#ffe0e0",
+          100: "#ffd6d6",
+          200: "#ffcccc",
+          300: "#ffadad",
+          400: "#ff7070",
+          500: "#ff3333",
+          600: "#e62e2e",
+          700: "#bf2626",
+          800: "#991f1f",
+          900: "#7d1919",
+        },
+        surfaceT: {
+          50: "#f5f2f2",
+          100: "#f2edee",
+          200: "#efe9ea",
+          300: "#e5dbdd",
+          400: "#d1c0c4",
+          500: "#BDA5AB",
+          600: "#aa959a",
+          700: "#8e7c80",
+          800: "#716367",
+          900: "#5d5154",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        // primary: {
+        //   DEFAULT: "hsl(var(--primary))",
+        //   foreground: "hsl(var(--primary-foreground))",
+        // },
+        // secondary: {
+        //   DEFAULT: "hsl(var(--secondary))",
+        //   foreground: "hsl(var(--secondary-foreground))",
+        // },
+        // destructive: {
+        //   DEFAULT: "hsl(var(--destructive))",
+        //   foreground: "hsl(var(--destructive-foreground))",
+        // },
+        // muted: {
+        //   DEFAULT: "hsl(var(--muted))",
+        //   foreground: "hsl(var(--muted-foreground))",
+        // },
+        // accent: {
+        //   DEFAULT: "hsl(var(--accent))",
+        //   foreground: "hsl(var(--accent-foreground))",
+        // },
+        // popover: {
+        //   DEFAULT: "hsl(var(--popover))",
+        //   foreground: "hsl(var(--popover-foreground))",
+        // },
+        // card: {
+        //   DEFAULT: "hsl(var(--card))",
+        //   foreground: "hsl(var(--card-foreground))",
+        // },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
   },
-  plugins: [],
-} satisfies Config;
+  plugins: [require("tailwindcss-animate")],
+};

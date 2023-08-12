@@ -25,6 +25,7 @@ import {
   SelectTrigger,
 } from "components/ui/select";
 import Link from "next/link";
+import { SelectValue } from "@radix-ui/react-select";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -57,7 +58,7 @@ function Components() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-surfaceT-400">
+    <main className="flex min-h-screena flex-col items-center justify-center bg-surfaceT-400">
       {/* Buttons */}
       <div className="m-10 mx-[20%] grid gap-4 rounded bg-surfaceT-200 p-4 outline-dashed outline-2 outline-[#9747FF] sm:grid-cols-3 lg:grid-cols-5">
         {/* rounded  */}
@@ -220,7 +221,7 @@ function Components() {
             <FormField
               control={form.control}
               name="email"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <Select
@@ -228,14 +229,8 @@ function Components() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger error={fieldState.error}>
-                        {field.value ? (
-                          <span>{field.value}</span>
-                        ) : (
-                          <span className="text-secondaryT-300">
-                            Select a verified email to display
-                          </span>
-                        )}
+                      <SelectTrigger ref={field.ref}>
+                        <SelectValue placeholder="Select a verified email to display"/>
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

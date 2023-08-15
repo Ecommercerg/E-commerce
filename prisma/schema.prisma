@@ -60,3 +60,22 @@ model VerificationToken{
   @@unique([identifier, token])
 }
 
+model Product{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  categorieId String? @db.ObjectId
+  description String?
+  price Float
+  quantityInStock Int
+
+  categorie Categorie? @relation(fields: [categorieId], references: [id], onDelete: Restrict, onUpdate: Cascade )
+
+}
+
+model Categorie{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String?
+  products Product[]
+}
+

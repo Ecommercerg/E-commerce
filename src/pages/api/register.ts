@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         if(isPasswordValid(password) === false){
-            return res.status(422).json({message: 'Password is not valid'})
+            return res.status(422).json({error: 'NOT_VALID'})
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);

@@ -5,6 +5,7 @@ import { prisma } from "~/server/db";
 import bcrypt from "bcrypt";
 import { isPasswordValid } from "../../../utils/passwordValidator";
 
+//this endpoint is used to change the password of a user
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

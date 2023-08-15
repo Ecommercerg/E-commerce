@@ -7,6 +7,7 @@ function generateToken() {
   return crypto.randomBytes(20).toString('hex');
 }
 
+//this api endpoint generates a token and sends it to the user's email
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body
 
@@ -16,6 +17,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
   }
 
   try {
+    //checks if user exists
     const user = await prisma.user.findUnique({
       where: { email }
     })
@@ -24,6 +26,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
       return res.status(400).json({ error: 'User not found' })
     }
 
+    //generates token and saves it to the database
     const resetToken = generateToken();
     console.log(resetToken)
     const resetTokenExpiresAt = new Date();
@@ -38,6 +41,8 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
       },
     });
 
+
+    //sends email to user
     await sendEmail({
       recipient_email: email,
       reset_token: resetToken,
@@ -45,7 +50,6 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
     return res.status(200).json({ message: "success" })
   } catch (error) {
-    console.error(error)
     return res.status(500).json({ error: 'Something went wrong' })
   }
 }

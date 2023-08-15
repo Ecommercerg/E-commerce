@@ -15,10 +15,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const existingUser = await prisma.user.findUnique({where: {email}});
 
+        //checks if user already exists
         if (existingUser) {
             return res.status(422).json({message: 'Email already in use'})
         }
 
+        //checks if password is valid (respects the regex)
         if(isPasswordValid(password) === false){
             return res.status(422).json({error: 'NOT_VALID'})
         }

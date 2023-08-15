@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 import crypto from "crypto";
 
+//this endpoint checks if the  recover password token is valid or no
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

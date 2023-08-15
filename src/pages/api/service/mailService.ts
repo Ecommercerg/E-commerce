@@ -5,6 +5,8 @@ interface sendEmailArgs {
   reset_token: string;
 }
 
+//mail service
+
 export async function sendEmail({ recipient_email, reset_token }: sendEmailArgs){
     var transporter = nodemailer.createTransport({
       service: "gmail",

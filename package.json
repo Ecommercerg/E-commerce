@@ -27,6 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "crypto": "^1.0.1",
+    "cypress": "^12.17.3",
     "lucide-react": "^0.263.1",
     "next": "^13.4.2",
     "next-auth": "^4.22.1",

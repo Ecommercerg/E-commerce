@@ -17,15 +17,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            "placeholder:text-muted-foreground flex h-10 w-full rounded-md border-2 bg-background p-4 text-sm text-secondaryT-400 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:border-primaryT-500 focus-visible:outline-none  disabled:cursor-not-allowed disabled:opacity-50" +
-              " " +
-              (error ? "border-errorT-500" : "border-primaryT-400"),
+            "p-y-4 flex h-10 w-full rounded-md border bg-background pl-4 pr-4 text-sm text-secondaryT-400 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-secondaryT-300 focus-visible:border-2 focus-visible:border-primaryT-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:pr-6",
+            error ? "border-errorT-500" : "border-secondaryT-100",
             className
           )}
           ref={ref}
           {...props}
         />
-        {error && <MdError className="absolute fill-errorT-500 top-[30%] right-[2%]" />}
+        {error && (
+          <MdError className="absolute right-[2%] top-[30%] fill-errorT-500" />
+        )}
       </div>
     );
   }

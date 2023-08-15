@@ -1,6 +1,5 @@
 "use client";
 
-import { Label } from "components/ui/label";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,6 +17,15 @@ import {
 } from "components/ui/form";
 import { Input } from "components/ui/input";
 import { toast } from "components/ui/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectTrigger,
+} from "components/ui/select";
+import Link from "next/link";
+import { SelectValue } from "@radix-ui/react-select";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -26,6 +34,11 @@ const FormSchema = z.object({
   password: z.string().min(2, {
     message: "Password must be at least 2 characters.",
   }),
+  email: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
 });
 
 function Components() {
@@ -45,9 +58,9 @@ function Components() {
   }
 
   return (
-    <>
+    <main className="flex min-h-screena flex-col items-center justify-center bg-surfaceT-400">
       {/* Buttons */}
-      <div className="m-10 mx-[20%] grid gap-4 p-4 outline-dashed outline-2 outline-[#9747FF] sm:grid-cols-3 lg:grid-cols-5">
+      <div className="m-10 mx-[20%] grid gap-4 rounded bg-surfaceT-200 p-4 outline-dashed outline-2 outline-[#9747FF] sm:grid-cols-3 lg:grid-cols-5">
         {/* rounded  */}
         <Button>Button</Button>
         <Button variant={"secondary"}>Button</Button>
@@ -157,12 +170,12 @@ function Components() {
           Button
         </Button>
       </div>
-      {/* Inputs */}
-      <div className="m-10 mx-[20%] grid gap-4 p-4 outline-dashed outline-2 outline-[#9747FF] sm:grid-cols-1 lg:grid-cols-2">
+      {/* Form */}
+      <div className="m-10 mx-[20%] grid grid-cols-1 gap-4 rounded bg-gradient-to-b from-surfaceT-200 to-primaryT-200 p-4 outline-dashed outline-2 outline-[#9747FF] ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-2/3 space-y-6"
+            className="min-w-full space-y-6"
           >
             <FormField
               control={form.control}
@@ -184,6 +197,7 @@ function Components() {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -203,11 +217,50 @@ function Components() {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger ref={field.ref}>
+                        <SelectValue placeholder="Select a verified email to display"/>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="m@example.com">
+                        m@example.com
+                      </SelectItem>
+                      <SelectSeparator />
+                      <SelectItem value="m@google.com">m@google.com</SelectItem>
+                      <SelectSeparator />
+                      <SelectItem value="m@support.com">
+                        m@support.com
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    You can manage email addresses in your{" "}
+                    <Link href="#">email settings</Link>.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button type="submit">Submit</Button>
           </form>
         </Form>
       </div>
-    </>
+      {/* Select */}
+      <div className="m-10 mx-[20%] grid grid-cols-1 gap-4 rounded bg-gradient-to-b from-surfaceT-200 to-primaryT-200 p-4 outline-dashed outline-2 outline-[#9747FF] "></div>
+    </main>
   );
 }
 

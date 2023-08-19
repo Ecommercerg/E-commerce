@@ -21,6 +21,7 @@ model User{
   updatedAt DateTime @updatedAt
   sessions Session[]
   accounts Account[]
+  review Review[]
 }
 
 model Account{
@@ -63,12 +64,14 @@ model VerificationToken{
 model Product{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
+  images String[]
   categorieId String? @db.ObjectId
   description String?
   price Float
   quantityInStock Int
 
   categorie Categorie? @relation(fields: [categorieId], references: [id], onDelete: Restrict, onUpdate: Cascade )
+  reviews Review[]
 
 }
 
@@ -77,5 +80,18 @@ model Categorie{
   name String
   description String?
   products Product[]
+}
+
+model Review{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  productId String @db.ObjectId
+  userId String @db.ObjectId
+  rating Int
+  comment String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

@@ -26,6 +26,9 @@ export default async function handler(
         orderBy: {
           [sort.name]: sort.direction,
         },
+        include: {
+          categorie: true,
+        },
       });
       return res.status(200).json(products);
     }
@@ -33,13 +36,18 @@ export default async function handler(
     //checks for the filter operator and returns the correct data
     switch (filter.operator) {
       case Operator.EQUALS:
-        const product = await prisma.product.findFirstOrThrow({
+        const product = await prisma.product.findFirst({
           where: {
-            price: 799.99,
+            [filter.name]: filter.value,
           },
           orderBy: {
             [sort.name]: sort.direction,
           },
+          include: {
+            categorie: true,
+            reviews: true,
+          },
+          
         });
         return res.status(200).json(product);
       case Operator.CONTAINS:
@@ -51,6 +59,10 @@ export default async function handler(
           },
           orderBy: {
             [sort.name]: sort.direction,
+          },
+          include: {
+            categorie: true,
+            reviews: true,
           },
         });
         return res.status(200).json(products);
@@ -64,6 +76,10 @@ export default async function handler(
           orderBy: {
             [sort.name]: sort.direction,
           },
+          include: {
+            categorie: true,
+            reviews: true,
+          },
         });
         return res.status(200).json(productsGreaterThan);
       case Operator.LESS_THAN:
@@ -71,10 +87,14 @@ export default async function handler(
           where: {
             [filter.name]: {
               lte: filter.value,
-            },
+            }
           },
           orderBy: {
             [sort.name]: sort.direction,
+          },
+          include: {
+            categorie: true,
+            reviews: true,
           },
         });
         return res.status(200).json(productsLessThan);

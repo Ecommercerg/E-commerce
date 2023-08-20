@@ -33,7 +33,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 name,
                 hashedPassword,
                 image : '',
-                emailVerified: new Date()
+                emailVerified: new Date(),
+                cart: {
+                    create: {
+                        products: {
+                            create: []
+                        },
+                        totalPrice: 0
+                    }
+                },
             }
         });
         return res.status(200).json(user)

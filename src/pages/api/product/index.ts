@@ -19,7 +19,6 @@ export default async function handler(
   };
 
   try {
-
     //in case the filter isn't sent in the body
     if (!filter) {
       const products = await prisma.product.findMany({
@@ -101,7 +100,7 @@ export default async function handler(
       default:
         return res.status(500).json({ error: "FILTER_ERROR" });
     }
-  } catch {
-    return res.status(500).json({ error: "Internal server error" });
+  } catch(error: any) {
+    return res.status(500).json({ error: error?.message || "Internal server error" });
   }
 }

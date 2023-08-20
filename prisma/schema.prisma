@@ -17,12 +17,14 @@ model User{
   email String? @unique
   emailVerified DateTime?
   hashedPassword String?
+  role Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sessions Session[]
   accounts Account[]
   review Review[]
   wishListItems WishlistItem[]
+  cart Cart?
 }
 
 model Account{
@@ -69,11 +71,16 @@ model Product{
   categorieId String? @db.ObjectId
   description String?
   price Float
-  discounts Discount[]
+  discountIds String[] @db.ObjectId
+  cartIds String[] @db.ObjectId
   quantityInStock Int
   wishlistUsers WishlistItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  categorie Categorie? @relation(fields: [categorieId], references: [id], onDelete: Restrict, onUpdate: Cascade )
+  discounts Discount[] @relation(fields: [discountIds], references: [id])
+  carts Cart[] @relation(fields: [cartIds], references: [id])
+  categorie Categorie? @relation(fields: [categorieId], references: [id], onDelete: SetNull, onUpdate: Cascade )
   reviews Review[]
 
 }
@@ -104,9 +111,20 @@ model WishlistItem {
   userId           String     @db.ObjectId
   product          Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId        String     @db.ObjectId
-  createdAt        DateTime   @default(now())
 
   @@unique([userId, productId])
+}
+
+model Cart{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId @unique
+  productIds String[] @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  totalPrice Float
+
+  products Product[] @relation(fields: [productIds], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Discount {
@@ -120,7 +138,8 @@ model Discount {
   minPurchase   Float
   startDate     DateTime
   endDate       DateTime
-  products      Product[] @relation("DiscountProduct")
+  productIds    String[]  @db.ObjectId
+  products      Product[] @relation(fields: [productIds], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -128,5 +147,10 @@ model Discount {
 enum DiscountType {
   PERCENTAGE
   AMOUNT
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 

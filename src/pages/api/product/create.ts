@@ -1,3 +1,4 @@
+import serverAuth from "lib/serverAuth";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 
@@ -11,6 +12,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const {name, price, description, images, categorieId, quantityInStock} = body;
 
     try {
+        const {currentUser} = await serverAuth(req, res);
+
+        if (currentUser?.role !== "ADMIN" ) {
+            return res.status(403).json({error: "FORBIDDEN"});
+        }
         const product = await prisma.product.create({
             data: {
                 name,

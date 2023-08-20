@@ -11,6 +11,10 @@ export default async function handler(
     if (req.method !== "POST") {
         return res.status(405).json({ message: "Method not allowed" });
     }
+
+    if (!currentUser) {
+        return res.status(403).json({ error: "NOT_AUTHORIZED" });
+    }
     try{
         const {productId, rating, comment} = req.body;
         const product = await prisma.product.findUnique({
@@ -37,9 +41,10 @@ export default async function handler(
                 },
             },
         });
+        return res.status(200).json(review);
     }
-    catch (error) {
+    catch (error: any) {
         console.error(error);
-        return res.status(500).json({ error: "Something went wrong" });
+        return res.status(500).json({ error: error?.message || "Something went wrong" });
     }
 }

@@ -22,6 +22,7 @@ model User{
   sessions Session[]
   accounts Account[]
   review Review[]
+  wishListItems WishlistItem[]
 }
 
 model Account{
@@ -68,7 +69,9 @@ model Product{
   categorieId String? @db.ObjectId
   description String?
   price Float
+  discounts Discount[]
   quantityInStock Int
+  wishlistUsers WishlistItem[]
 
   categorie Categorie? @relation(fields: [categorieId], references: [id], onDelete: Restrict, onUpdate: Cascade )
   reviews Review[]
@@ -93,5 +96,37 @@ model Review{
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WishlistItem {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String     @db.ObjectId
+  product          Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId        String     @db.ObjectId
+  createdAt        DateTime   @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Discount {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  code          String    @unique
+  name          String
+  description   String?
+  type          DiscountType
+  amount        Float
+  percentage    Float
+  minPurchase   Float
+  startDate     DateTime
+  endDate       DateTime
+  products      Product[] @relation("DiscountProduct")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum DiscountType {
+  PERCENTAGE
+  AMOUNT
 }
 

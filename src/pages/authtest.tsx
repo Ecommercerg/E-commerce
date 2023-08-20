@@ -16,7 +16,9 @@ const Authtest = () => {
         password,
         callbackUrl: `/success`,
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, [email, password]);
 
   return (

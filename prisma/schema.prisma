@@ -117,14 +117,14 @@ model WishlistItem {
 
 model Cart{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId @unique
+  userId String? @db.ObjectId @unique
   productIds String[] @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   totalPrice Float
 
   products Product[] @relation(fields: [productIds], references: [id])
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Discount {

@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(405).json({ message: "Method not allowed" });
     }
 
-    const { productId } = body;
+    const { productId, cartId } = body;
 
     if (!productId) {
         return res.status(400).json({ error: "MISSING_PRODUCT_ID" });
@@ -49,6 +49,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
         return res.status(200).json("SUCCESS");
     } catch (error: any) {
-        return res.status(500).json({ error: error?.message || "Something went wrong" });
+        const product = await prisma.product.findUnique({
+            where: {
+                id: productId as string,
+            },
+        });
+        if (!product) {
+            return res.status(404).json({ error: "PRODUCT_NOT_FOUND" });
+        }
+        const cart = await prisma.cart.findUnique({
+            where: {
+                id: cartId,
+            }
+        });
+        if (!cart) {
+            return res.status(400).json({ error: "CART_NOT_FOUND" });
+        }
+        //add product to cart
+        await prisma.cart.update({
+            where: {
+                id: cartId,
+            },
+            data: {
+                products: {
+                    connect: {
+                        id: productId as string,
+                    },
+                },
+                totalPrice: cart.totalPrice + product.price,
+            },
+        });
+        return res.status(200).json("SUCCESS");
     }
 }
